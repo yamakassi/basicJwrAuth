@@ -7,6 +7,9 @@ services:
     container_name: auth-server
     ports:
       - "8081:8081"
+    depends_on:
+      - postgres_db
+      - redis
   postgres_db:
     image: postgres:14
     container_name: postgres-auth
