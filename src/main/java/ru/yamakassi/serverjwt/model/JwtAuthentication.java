@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+import ru.yamakassi.serverjwt.dto.RoleDTO;
 
 import java.util.Collection;
 import java.util.Set;
@@ -16,10 +17,10 @@ public class JwtAuthentication implements Authentication {
     private boolean authenticated;
     private String username;
     private String firstName;
-    private Set<Role> roles;
+    private Set<RoleDTO> roleDTOS;
 
     @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() { return roles; }
+    public Collection<? extends GrantedAuthority> getAuthorities() { return roleDTOS; }
 
     @Override
     public Object getCredentials() { return null; }

@@ -1,32 +1,40 @@
 package ru.yamakassi.serverjwt.service;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.yamakassi.serverjwt.dto.User;
-import ru.yamakassi.serverjwt.model.Role;
+import ru.yamakassi.serverjwt.dto.UserDTO;
+import ru.yamakassi.serverjwt.dto.RoleDTO;
+import ru.yamakassi.serverjwt.repo.UserRepository;
 
+import javax.annotation.PostConstruct;
 import java.util.Collections;
-import java.util.List;
 import java.util.Optional;
 
 @Service
-@RequiredArgsConstructor
+@Slf4j
+
 public class UserServiceImpl implements UserService {
 
-    private final List<User> users;
+    private  final UserRepository userRepository;
 
-    public UserServiceImpl() {
-        this.users = List.of(
-                new User("anton", "1234", "Антон", "Иванов", Collections.singleton(Role.USER)),
-                new User("ivan", "12345", "Сергей", "Петров", Collections.singleton(Role.ADMIN))
-        );
+
+    public UserServiceImpl(UserRepository userRepository) {
+        this.userRepository = userRepository;
+
     }
 
-    public Optional<User> getByLogin(@NonNull String login) {
-        return users.stream()
-                .filter(user -> login.equals(user.getLogin()))
-                .findFirst();
+
+    public Optional<UserDTO> getByLogin(@NonNull String login) {
+        return DataInitializer.convertByDTO(userRepository.getUserByLogin(login));
+    }
+
+    @Override
+    public Optional<UserDTO> createUser(@NonNull UserDTO userDTO) {
+        return Optional.empty();
     }
 
 }
