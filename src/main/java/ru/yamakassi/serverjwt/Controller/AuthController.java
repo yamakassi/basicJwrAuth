@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import ru.yamakassi.serverjwt.dto.JwtRequest;
 import ru.yamakassi.serverjwt.dto.JwtResponse;
 import ru.yamakassi.serverjwt.dto.RefreshJwtRequest;
+import ru.yamakassi.serverjwt.dto.UserDTO;
 import ru.yamakassi.serverjwt.service.AuthService;
 
 @RestController
@@ -21,6 +22,11 @@ public class AuthController {
     @PostMapping("login")
     public ResponseEntity<JwtResponse> login(@RequestBody JwtRequest authRequest) {
         final JwtResponse token = authService.login(authRequest);
+        return ResponseEntity.ok(token);
+    }
+    @PostMapping("registration")
+    public ResponseEntity<JwtResponse> create(@RequestBody UserDTO userDTO) {
+        final JwtResponse token = authService.registration(userDTO);
         return ResponseEntity.ok(token);
     }
 

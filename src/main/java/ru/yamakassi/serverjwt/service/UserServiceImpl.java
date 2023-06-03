@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.yamakassi.serverjwt.dto.UserDTO;
 import ru.yamakassi.serverjwt.dto.RoleDTO;
+import ru.yamakassi.serverjwt.model.User;
 import ru.yamakassi.serverjwt.repo.UserRepository;
+import ru.yamakassi.serverjwt.utils.UserConverter;
 
 import javax.annotation.PostConstruct;
 import java.util.Collections;
@@ -29,12 +31,13 @@ public class UserServiceImpl implements UserService {
 
 
     public Optional<UserDTO> getByLogin(@NonNull String login) {
-        return DataInitializer.convertByDTO(userRepository.getUserByLogin(login));
+        return UserConverter.convertByDTO(userRepository.getUserByLogin(login));
     }
 
     @Override
-    public Optional<UserDTO> createUser(@NonNull UserDTO userDTO) {
-        return Optional.empty();
+    public User createUser(@NonNull UserDTO userDTO) {
+
+        return userRepository.save(UserConverter.convertUser(userDTO));
     }
 
 }

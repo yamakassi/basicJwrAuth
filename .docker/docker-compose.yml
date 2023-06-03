@@ -1,4 +1,12 @@
 services:
+  auth_server:
+    image: base-auth-server:0.0.1
+    build:
+      dockerfile: .docker/Dockerfile
+      context: ../
+    container_name: auth-server
+    ports:
+      - "8080:8080"
   postgres_db:
     image: postgres:14
     container_name: postgres-auth
