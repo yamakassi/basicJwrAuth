@@ -6,7 +6,7 @@ services:
       context: ../
     container_name: auth-server
     ports:
-      - "8080:8080"
+      - "8081:8081"
   postgres_db:
     image: postgres:14
     container_name: postgres-auth
