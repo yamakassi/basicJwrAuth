@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1
-# read https://docs.docker.com/language/java/develop/
+# почитать подробней про сборку https://docs.docker.com/language/java/develop/
 FROM eclipse-temurin:17-jdk-jammy as base
 WORKDIR /app
 COPY .mvn/ .mvn
